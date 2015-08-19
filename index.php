@@ -1,13 +1,7 @@
-<?php get_header();
+<?php 
 
-if ( have_posts() ) :
-	while ( have_posts() ) : the_post();
-		get_template_part( 'content', get_post_format() );
-	endwhile;
+get_header();
 
-else :
-	get_template_part( 'content', 'none' );
-
-endif;
+get_template_part( 'loop', 'category' );
 
 get_footer(); ?>
