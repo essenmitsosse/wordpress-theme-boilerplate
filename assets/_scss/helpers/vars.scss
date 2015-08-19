@@ -1,0 +1,14 @@
+// Fonts
+$font-size: 18px;
+$line-height: 1.4;
+$rel-font-size: 1/$line-height;
+
+$font-family: Helvetica, Arial, sans-serif;
+
+@function relative-to-font-size ( $size ) {
+	@return ( 1 / $line-height ) * $size;
+}
+
+// Font Colors
+$font-color: #000;
+$link-font-color: #000;
