@@ -1,6 +1,15 @@
-@mixin getRem( $value-name, $value ) {
-	#{$value-name}: $font-size * $line-height * $value;
-	#{$value-name}: $line-height * $value+rem;
+@mixin getRem( $value-name, $values... ) {
+	$pixel: ();
+	$rem: ();
+	
+	@each $value in $values {
+
+		$pixel: append( $pixel, $line-height * $value * $font-size );
+		$rem:   append( $rem,   $line-height * $value+rem );
+	}
+
+	#{$value-name}: $pixel;
+	#{$value-name}: $rem;
 }
 
 @mixin font-weight-normal () {
@@ -28,7 +37,7 @@
 	user-select: none;
 }
 
-@mixin transition( $value ) {
+@mixin transition( $value... ) {
 	-webkit-transition: unquote($value);
 	-moz-transition: unquote($value);
 	-ms-transition: unquote($value);
@@ -46,4 +55,39 @@
 
 @mixin rotate ($deg) {
   @include transform(rotate(#{$deg}deg));
+}
+
+@mixin filter($filter-type,$filter-amount) { 
+	-webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+	-moz-filter: $filter-type+unquote('(#{$filter-amount})');
+	-ms-filter: $filter-type+unquote('(#{$filter-amount})');
+	-o-filter: $filter-type+unquote('(#{$filter-amount})');
+	filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+@mixin activate-acceleration () {
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+@mixin gradient ( $c1, $c2, $down: false, $start: 0%, $end: 100%  ) {
+	$dir: left;
+	$startPos: left top;
+	$endPos: right top;
+	$to: to right;
+	$type: 1;
+	@if( $down ) {
+		$dir: top;
+		$startPos: left top;
+		$endPos: left bottom;
+		$to: to bottom;
+		$type: 0;
+	}
+	background: $c1; /* Old browsers */
+	background: -moz-linear-gradient( $dir, $c1 $start, $c2 $end ); /* FF3.6+ */
+	background: -webkit-gradient( linear, $startPos, $endPos, color-stop( $start, $c1 ), color-stop( $end, $c2 ) ); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient( $dir, $c1 $start, $c2 $end ); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient( $dir, $c1 $start, $c2 $end ); /* Opera 11.10+ */
+	background: -ms-linear-gradient( $dir, $c1 $start, $c2 $end ); /* IE10+ */
+	background: linear-gradient( $to, $c1 $start, $c2 $end ); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$c1}', endColorstr='#{$c2}',GradientType=#{$type} );
 }
