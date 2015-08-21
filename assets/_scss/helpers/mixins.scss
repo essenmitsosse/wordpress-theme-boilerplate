@@ -38,11 +38,11 @@
 }
 
 @mixin transition( $value... ) {
-	-webkit-transition: unquote($value);
-	-moz-transition: unquote($value);
-	-ms-transition: unquote($value);
-	-o-transition: unquote($value);
-	transition: unquote($value);
+	-webkit-transition: $value;
+	-moz-transition: $value;
+	-ms-transition: $value;
+	-o-transition: $value;
+	transition: $value;
 }
 
 @mixin transform($transforms) {
